@@ -13,7 +13,7 @@ Package manager: `pnpm`. Never use npm or yarn here.
 - Test: `pnpm test` (`vitest run`); component tests use Testing Library
 - Build: `pnpm build`
 
-A change is done only when typecheck, lint, format check and tests all pass, and the affected page or route has been loaded in the running dev server and observed working.
+A change is done only when typecheck, lint, format check and tests all pass, and the affected page or route has been exercised in the running dev server through the `test-web` harness (spec in `harness.spec.json`).
 
 ## Layout
 

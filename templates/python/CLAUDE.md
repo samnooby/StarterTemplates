@@ -13,7 +13,7 @@ Environment and packages: `uv`. Never bare `pip`, never activate a venv by hand 
 - Test: `uv run pytest`
 - Add a dependency: `uv add <name>` (`uv add --dev <name>` for tooling)
 
-A change is done only when pyright, ruff check, ruff format check and pytest all pass, and the change has been exercised in the running application or CLI.
+A change is done only when pyright, ruff check, ruff format check and pytest all pass, and the change has been exercised through the `test-http` harness for a service or the `test-cli` harness for a CLI (spec in `harness.spec.json`).
 
 ## Layout
 
