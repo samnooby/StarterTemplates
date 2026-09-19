@@ -1,0 +1,10 @@
+# Untested: written for Maestro on an iOS simulator or Android emulator; run `pnpm maestro` on a machine with one.
+appId: com.example.counter
+---
+- launchApp
+- assertVisible: 'Count: 0'
+- tapOn: 'Increment'
+- tapOn: 'Increment'
+- assertVisible: 'Count: 2'
+- tapOn: 'Reset'
+- assertVisible: 'Count: 0'
