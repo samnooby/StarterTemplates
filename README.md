@@ -23,6 +23,8 @@ Once installed, every session gets:
 | Skill | `/pr` | PR-creator agent opens a PR with a conventional title and short body |
 | Skill | `/coding-style` | Loads the full style rules on demand |
 | Skill | `/new-project` | Copies rules, `CLAUDE.md` and settings into a project |
+| Skill | `/run-app` | Detects the app type and runs the matching harness |
+| Skill | `/test-http`, `/test-web`, `/test-cli`, `/test-mobile` | Start, drive, observe and stop an app of that type from a JSON spec |
 | Agent | `planner`, `test-writer`, `code-reviewer`, `verifier`, `pr-creator` | Also delegated to automatically when a task matches |
 | Hook | SessionStart | Prints git state and a compact style summary |
 | Hook | PreToolUse Bash | Blocks `--no-verify`, force-push to main/master, `rm -rf` of home/root/cwd, committing on main |
@@ -50,6 +52,42 @@ cp path/to/StarterTemplates/templates/shared/settings.json .claude/settings.json
 cp path/to/StarterTemplates/hooks/scripts/{guard-bash,format-file}.sh .claude/hooks/
 ```
 
+## App harness
+
+`harness/` is how the verifier proves a change works in the running app, not just in unit tests. One shell runner (`with-app.sh`) owns the process lifecycle: start, wait for a port or log line, run the check, always stop. Three drivers read a JSON spec and print a pass or fail table:
+
+| Driver | Spec asserts | Typical target |
+| --- | --- | --- |
+| `http-probe.ts` | status, headers, JSON body (exact or partial) | Express, Fastify, Next.js routes, FastAPI |
+| `web-drive.ts` | page steps in Chromium, plus zero console errors and failed requests, screenshots | Vite, Next.js, Expo web |
+| `cli-run.ts` | exit code, stdout, stderr, with stdin and env | Python and Node CLIs |
+
+`detect-app.sh` maps a repo to a driver and a start command. One-time setup on a machine:
+
+```
+cd harness && pnpm install && pnpm exec playwright install chromium
+```
+
+Expo apps get three layers via `/test-mobile`: component tests, the web build in Chromium, and Maestro flows on a simulator or emulator. The first two run anywhere; the third needs a device and is marked untested until you run it.
+
+## Examples
+
+`examples/` holds one tiny app per harness, written to the style rules, each with its own tests and a `harness.spec.json`. They prove the harness works and double as starting points.
+
+| Example | Stack | Proves |
+| --- | --- | --- |
+| `http-express` | Express 5, zod, Vitest | `test-http` |
+| `web-vite` | Vite, React 19, CSS Modules, Testing Library | `test-web` |
+| `cli-python` | uv, ruff, pyright strict, pytest | `test-cli` |
+| `mobile-expo` | Expo SDK 54, jest-expo, Testing Library, Maestro | `test-mobile` (Maestro layer untested here) |
+
+Run one end to end, from the repo root:
+
+```
+harness/with-app.sh --cwd examples/http-express --port 3000 --start "pnpm dev" \
+  --check "cd ../../harness && pnpm -s http ../examples/http-express/harness.spec.json"
+```
+
 ## Layout
 
 ```
@@ -60,6 +98,8 @@ hooks/              hooks.json and the scripts it runs
 rules/              the canonical style rules (general, typescript, react, python, testing, git)
 scripts/            helpers used by skills
 templates/          per-stack CLAUDE.md and tooling config, shared settings.json
+harness/            app runner, drivers and detector used by the test-* skills and the verifier
+examples/           one small app per harness, each with tests and a harness.spec.json
 ```
 
 `rules/` is the single source of truth. The plugin reads it at runtime (`/coding-style`, the agents), the session-start hook carries a hand-maintained compact summary of it, and `/new-project` copies it into projects. When a rule changes, update the rule file and, if it is one of the headline rules, the summary in `hooks/scripts/session-context.sh`.
