@@ -1,0 +1,17 @@
+{
+  "name": "samnooby",
+  "owner": {
+    "name": "Sam Newby",
+    "url": "https://github.com/samnooby"
+  },
+  "description": "Sam's personal Claude Code plugins.",
+  "plugins": [
+    {
+      "name": "sam-workflow",
+      "source": ".",
+      "displayName": "Sam's Workflow",
+      "description": "Coding style, plan-first TDD workflow and specialist agents for TypeScript, React and Python.",
+      "version": "0.1.0"
+    }
+  ]
+}
