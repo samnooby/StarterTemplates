@@ -2,6 +2,7 @@ import nextPlugin from '@next/eslint-plugin-next';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+  { ignores: ['eslint.config.js', '.next/', 'node_modules/', 'coverage/'] },
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
@@ -16,6 +17,7 @@ export default tseslint.config(
       },
     },
     rules: {
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-non-null-assertion': 'error',
       '@typescript-eslint/consistent-type-assertions': [

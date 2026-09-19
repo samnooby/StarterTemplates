@@ -1,0 +1,9 @@
+{
+  "cwd": ".",
+  "cases": [
+    { "name": "greets by name", "command": ["uv", "run", "greet", "Sam"], "expect": { "stdout": "Hello, Sam!\n" } },
+    { "name": "shouts", "command": ["uv", "run", "greet", "--shout", "Sam"], "expect": { "stdout": "HELLO, SAM!\n" } },
+    { "name": "rejects empty name", "command": ["uv", "run", "greet", " "], "expect": { "exitCode": 2, "stderrIncludes": "name must not be empty" } },
+    { "name": "shows help", "command": ["uv", "run", "greet", "--help"], "expect": { "stdoutIncludes": "Print a greeting." } }
+  ]
+}

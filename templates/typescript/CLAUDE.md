@@ -13,7 +13,7 @@ Package manager: `pnpm`. Never use npm or yarn here.
 - Test: `pnpm test` (`vitest run`); watch with `pnpm test:watch`
 - Build: `pnpm build`
 
-A change is done only when typecheck, lint, format check and tests all pass, and the change has been exercised in the running app.
+A change is done only when typecheck, lint, format check and tests all pass, and the change has been exercised in the running app through the `test-http` harness (spec in `harness.spec.json`).
 
 ## Layout
 

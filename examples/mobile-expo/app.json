@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Counter",
+    "slug": "example-mobile-expo",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "platforms": ["ios", "android", "web"],
+    "ios": { "bundleIdentifier": "com.example.counter", "supportsTablet": true },
+    "android": { "package": "com.example.counter" },
+    "web": { "bundler": "metro", "output": "single" }
+  }
+}

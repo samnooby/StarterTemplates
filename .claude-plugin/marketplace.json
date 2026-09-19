@@ -11,7 +11,7 @@
       "source": ".",
       "displayName": "Sam's Workflow",
       "description": "Coding style, plan-first TDD workflow and specialist agents for TypeScript, React and Python.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "baseUrl": "http://127.0.0.1:3000",
+  "requests": [
+    {
+      "name": "health",
+      "path": "/health",
+      "expect": { "status": 200, "body": { "status": "ok" } }
+    },
+    {
+      "name": "create todo",
+      "method": "POST",
+      "path": "/todos",
+      "body": { "title": "ship the harness" },
+      "expect": {
+        "status": 201,
+        "headers": { "content-type": "application/json" },
+        "bodyIncludes": { "title": "ship the harness", "done": false }
+      }
+    },
+    {
+      "name": "reject empty title",
+      "method": "POST",
+      "path": "/todos",
+      "body": { "title": "" },
+      "expect": { "status": 400, "bodyIncludes": { "error": "invalid_request" } }
+    },
+    {
+      "name": "unknown todo",
+      "path": "/todos/nope",
+      "expect": { "status": 404, "body": { "error": "todo_not_found", "todoId": "nope" } }
+    }
+  ]
+}

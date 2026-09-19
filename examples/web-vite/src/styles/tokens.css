@@ -1,0 +1,18 @@
+:root {
+  --color-bg: #fafafa;
+  --color-fg: #1a1a1a;
+  --color-accent: #2563eb;
+  --color-accent-fg: #ffffff;
+  --space-2: 0.5rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --radius: 0.5rem;
+  --font: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font);
+}
