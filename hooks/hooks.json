@@ -1,0 +1,51 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/session-context.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/guard-bash.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/format-file.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "You are checking whether Claude may stop. Look only at the last assistant message. If it claims that a code change is complete, implemented, fixed or done, it must also state that the type checker, linter and tests were run and give their results, and that the change was exercised in the running app or explain why that was not possible. If those statements are missing, return {\"ok\": false, \"reason\": \"Run /verify (typecheck, lint, tests, run the app) and report the results before declaring the change done.\"}. If the message is a plan, a question, a review, an explanation, a report that something is blocked, or does not claim a code change is done, return {\"ok\": true}.",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

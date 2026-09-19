@@ -1,0 +1,16 @@
+{
+  "name": "sam-workflow",
+  "displayName": "Sam's Workflow",
+  "version": "0.1.0",
+  "description": "Sam's coding style, plan-first TDD workflow, and specialist agents (planner, test-writer, code-reviewer, verifier, pr-creator) for TypeScript, React and Python projects.",
+  "author": {
+    "name": "Sam Newby",
+    "url": "https://github.com/samnooby"
+  },
+  "repository": "https://github.com/samnooby/StarterTemplates",
+  "license": "MIT",
+  "keywords": ["workflow", "tdd", "code-style", "typescript", "react", "python"],
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "hooks": "./hooks/hooks.json"
+}
