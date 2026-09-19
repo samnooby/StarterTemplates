@@ -27,6 +27,7 @@ If no stack was given, detect it:
 4. Copy `templates/shared/settings.json` to `.claude/settings.json`, and `${CLAUDE_PLUGIN_ROOT}/hooks/scripts/guard-bash.sh` and `format-file.sh` to `.claude/hooks/`. Make the scripts executable. Trim the permission allowlist in `settings.json` to the package manager the project actually uses.
 5. If the project has no formatter or linter config for its stack, offer to add the default from `templates/<stack>/` (`.prettierrc`, `eslint.config.js`, `tsconfig.json` additions, or `ruff` and `pyright` sections in `pyproject.toml`). Do not add them without asking.
 6. Add `CLAUDE.local.md` to `.gitignore` if it is not already ignored.
+7. Seed a `harness.spec.json` at the project root from the matching example in `${CLAUDE_PLUGIN_ROOT}/examples/` (`http-express`, `web-vite`, `cli-python`, `mobile-expo`), trimmed to a health check or a first-screen load that is true for this project. The `run-app` skill uses it as the smoke suite.
 
 ## Hand-back
 

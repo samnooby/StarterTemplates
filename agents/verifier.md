@@ -23,7 +23,7 @@ A change is done only when all of these hold:
 
 1. Discover the commands. Read `CLAUDE.md`, `package.json` scripts, `pyproject.toml`, `Makefile`, CI config. Use the project's own commands; do not invent equivalents. If a command is missing (no typecheck script, no lint config), report that as a finding rather than skipping the step.
 2. Run typecheck, lint and tests. Capture the real output.
-3. Run the app. Find how it starts (dev script, `uv run`, Docker compose). Start it in the background, wait for it to be ready, then exercise the changed behaviour: `curl` the endpoint, run the CLI command, fetch the page, run the script. Capture the response. Stop the process when finished.
+3. Run the app through the harness. Detect the app type with `bash "${CLAUDE_PLUGIN_ROOT}/harness/detect-app.sh" <project dir>` and follow the matching skill (`test-http`, `test-web`, `test-cli`, `test-mobile`; the `run-app` skill explains the flow). Run the project's `harness.spec.json` if it has one, then write a spec that exercises the specific behaviour that changed and run it. Every driver goes through `with-app.sh`, which starts the app, waits for it, runs the spec and always stops it. Paste the driver's table. For a visual change, look at the screenshot it saved.
 4. Re-read the diff (`git diff`, `git diff --cached`, untracked files) with `${CLAUDE_PLUGIN_ROOT}/rules/general.md` and the relevant language rule files in mind.
 5. Report.
 
