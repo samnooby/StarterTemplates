@@ -34,7 +34,7 @@ emit() {
 }
 
 if [ -f app.json ] && has_dep expo; then
-  emit mobile "CI=1 $(pkg_manager) exec expo start --web --port 8081" 8081
+  emit mobile "CI=1 EXPO_OFFLINE=1 $(pkg_manager) exec expo start --web --port 8081" 8081
 elif has_dep next; then
   emit web "$(script_or dev 'npx next dev')" 3000
 elif has_dep vite; then
