@@ -1,0 +1,45 @@
+# Merge these sections into the project's pyproject.toml.
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "E", "W",    # pycodestyle
+  "F",         # pyflakes
+  "I",         # isort
+  "UP",        # pyupgrade
+  "B",         # bugbear
+  "SIM",       # simplify
+  "RET",       # return
+  "ARG",       # unused arguments
+  "PTH",       # use pathlib
+  "DTZ",       # timezone-aware datetimes
+  "ANN",       # annotations everywhere
+  "BLE",       # no blind except
+  "TRY",       # exception hygiene
+  "RUF",
+]
+ignore = [
+  "ANN401",    # allowed to be flagged by pyright instead
+  "TRY003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["ARG", "ANN"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+include = ["src", "tests"]
+reportMissingTypeStubs = true
+reportUnnecessaryTypeIgnoreComment = "error"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
