@@ -1,0 +1,15 @@
+{
+  "baseUrl": "http://127.0.0.1:5173",
+  "outDir": "out/web-vite",
+  "steps": [
+    { "goto": "/" },
+    { "expectTitle": "Counter" },
+    { "expectText": "Count: 0" },
+    { "click": { "role": "button", "name": "Increment" } },
+    { "click": { "role": "button", "name": "Increment" } },
+    { "expectText": "Count: 2" },
+    { "click": { "role": "button", "name": "Reset" } },
+    { "expectText": "Count: 0" },
+    { "screenshot": "counter" }
+  ]
+}

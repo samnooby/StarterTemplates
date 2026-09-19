@@ -1,0 +1,25 @@
+.counter {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  max-width: 20rem;
+}
+
+.count {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.button {
+  padding: var(--space-2) var(--space-4);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  cursor: pointer;
+}
